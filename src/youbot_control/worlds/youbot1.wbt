@@ -41,8 +41,8 @@ WorldInfo {
   ]
 }
 Viewpoint {
-  orientation -0.08823040069404674 -0.417153427527512 0.9045432075337346 5.255193293834736
-  position -0.7119120111024351 1.5450707877576382 0.9112999221918632
+  orientation -0.21530727263193325 -0.5014380109752621 0.8379753573351496 5.348378988147983
+  position -1.3665737501963007 1.2061201234034755 1.2170241971925464
   follow "youBot"
 }
 TexturedBackground {
@@ -58,12 +58,27 @@ WoodenBox {
   size 0.6 0.6 0.4
 }
 KukaBox {
-  translation 0.472629 0.00710068 0.41876
-  rotation 0 0 1 -1.5707963267948966
+  translation 0.472629 0.007100679999999998 0.4124917227891936
+  rotation -2.5263741715914474e-17 2.084258691562962e-16 -1 1.5707963267948966
 }
 Youbot {
-  translation 0 0 0.102838
+  translation -0.349778 4.24564e-06 0.102673
+  rotation -0.01910501367574832 0.9998174825639843 3.4447974017753594e-06 0.002110345492983813
+  name "my_robot"
+  controller "<extern>"
   controllerArgs [
     "demo"
+  ]
+  window "<none>"
+  bodySlot [
+    Accelerometer {
+    }
+    Gyro {
+    }
+    InertialUnit {
+      name "inertial_unit"
+    }
+    GPS {
+    }
   ]
 }

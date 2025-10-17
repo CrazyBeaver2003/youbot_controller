@@ -1,6 +1,22 @@
 <?xml version="1.0" ?>
 <robot name="youbot">
     <webots>
+        <plugin type="webots_ros2_driver::Ros2IMU">
+            <enabled>True</enabled>
+            <topicName>/imu</topicName>
+            <updateRate>10</updateRate>
+            <!-- If `True`, the device topics will constantly publish, which can slow down the simulation. -->
+            <!-- By default the topics are publishing only if there is at least one subscriber for the corresponding topic. -->
+            <alwaysOn>True</alwaysOn>
+            <frameName>base_link</frameName>
+            <!-- Indicates the name of the inertial unit device. -->
+            <inertialUnitName>inertial_unit</inertialUnitName>
+            <!-- Indicates the name of the gyro device. -->
+            <gyroName>gyro</gyroName>
+            <!-- Indicates the name of the accelerometer device. -->
+            <accelerometerName>accelerometer</accelerometerName>
+        </plugin>
+
         <plugin type="youbot_control.youbot_driver.YouBotDriver" />
     </webots>
 </robot>

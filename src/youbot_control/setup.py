@@ -31,6 +31,7 @@ setup(
     entry_points={
         'console_scripts': [
             'youbot_driver = youbot_control.youbot_driver:main',
+            'youbot_odometry = youbot_control.youbot_odometry:main',
         ],
     },
 )

@@ -30,7 +30,7 @@ class YouBotDriver:
         rclpy.init(args=None)
         self.__node = rclpy.create_node('youbot_driver_node')
         self.__node.create_subscription(Twist, 'cmd_vel', self.__cmd_vel_callback, 1)
-
+    
     def __cmd_vel_callback(self, twist):
         self.__target_twist = twist
 
