@@ -1,0 +1,6 @@
+<?xml version="1.0" ?>
+<robot name="youbot">
+    <webots>
+        <plugin type="youbot_control.youbot_driver.YouBotDriver" />
+    </webots>
+</robot>

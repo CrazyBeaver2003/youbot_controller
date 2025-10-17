@@ -1,0 +1,23 @@
+[0.649s] Invoking command in '/home/timoha/weebots_ws/build/youbot_control': PYTHONPATH=/home/timoha/weebots_ws/build/youbot_control/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/timoha/weebots_ws/install/youbot_control/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/timoha/weebots_ws/build/youbot_control/build --no-deps symlink_data
+[0.890s] running develop
+[1.082s] running egg_info
+[1.082s] creating youbot_control.egg-info
+[1.082s] writing youbot_control.egg-info/PKG-INFO
+[1.082s] writing dependency_links to youbot_control.egg-info/dependency_links.txt
+[1.082s] writing entry points to youbot_control.egg-info/entry_points.txt
+[1.082s] writing requirements to youbot_control.egg-info/requires.txt
+[1.082s] writing top-level names to youbot_control.egg-info/top_level.txt
+[1.083s] writing manifest file 'youbot_control.egg-info/SOURCES.txt'
+[1.084s] reading manifest file 'youbot_control.egg-info/SOURCES.txt'
+[1.085s] writing manifest file 'youbot_control.egg-info/SOURCES.txt'
+[1.123s] running build_ext
+[1.123s] Creating /home/timoha/weebots_ws/install/youbot_control/lib/python3.10/site-packages/youbot-control.egg-link (link to .)
+[1.124s] Installing youbot_driver script to /home/timoha/weebots_ws/install/youbot_control/lib/youbot_control
+[1.124s] 
+[1.124s] Installed /home/timoha/weebots_ws/build/youbot_control
+[1.124s] running symlink_data
+[1.124s] creating /home/timoha/weebots_ws/install/youbot_control/share/ament_index
+[1.124s] creating /home/timoha/weebots_ws/install/youbot_control/share/ament_index/resource_index
+[1.124s] creating /home/timoha/weebots_ws/install/youbot_control/share/ament_index/resource_index/packages
+[1.124s] error: can't copy '/home/timoha/weebots_ws/build/youbot_control/resource/youbot_control': doesn't exist or not a regular file
+[1.163s] Invoked command in '/home/timoha/weebots_ws/build/youbot_control' returned '1': PYTHONPATH=/home/timoha/weebots_ws/build/youbot_control/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/timoha/weebots_ws/install/youbot_control/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/timoha/weebots_ws/build/youbot_control/build --no-deps symlink_data

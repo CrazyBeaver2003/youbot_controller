@@ -1,0 +1,17 @@
+[0.659s] Invoking command in '/home/timoha/weebots_ws/build/youbot_control': PYTHONPATH=/home/timoha/weebots_ws/build/youbot_control/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/timoha/weebots_ws/install/youbot_control/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/timoha/weebots_ws/build/youbot_control/build --no-deps symlink_data
+[0.909s] running develop
+[1.093s] running egg_info
+[1.093s] writing youbot_control.egg-info/PKG-INFO
+[1.093s] writing dependency_links to youbot_control.egg-info/dependency_links.txt
+[1.093s] writing entry points to youbot_control.egg-info/entry_points.txt
+[1.094s] writing requirements to youbot_control.egg-info/requires.txt
+[1.094s] writing top-level names to youbot_control.egg-info/top_level.txt
+[1.096s] reading manifest file 'youbot_control.egg-info/SOURCES.txt'
+[1.096s] writing manifest file 'youbot_control.egg-info/SOURCES.txt'
+[1.132s] running build_ext
+[1.132s] Creating /home/timoha/weebots_ws/install/youbot_control/lib/python3.10/site-packages/youbot-control.egg-link (link to .)
+[1.132s] Installing youbot_driver script to /home/timoha/weebots_ws/install/youbot_control/lib/youbot_control
+[1.132s] 
+[1.132s] Installed /home/timoha/weebots_ws/build/youbot_control
+[1.132s] running symlink_data
+[1.169s] Invoked command in '/home/timoha/weebots_ws/build/youbot_control' returned '0': PYTHONPATH=/home/timoha/weebots_ws/build/youbot_control/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/timoha/weebots_ws/install/youbot_control/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/timoha/weebots_ws/build/youbot_control/build --no-deps symlink_data

@@ -1,0 +1,16 @@
+package.xml
+setup.cfg
+setup.py
+launch/robot_launch.py
+resource/youbot.urdf
+resource/youbot_control
+worlds/youbot.wbt
+youbot_control/__init__.py
+youbot_control/youbot_driver.py
+youbot_control.egg-info/PKG-INFO
+youbot_control.egg-info/SOURCES.txt
+youbot_control.egg-info/dependency_links.txt
+youbot_control.egg-info/entry_points.txt
+youbot_control.egg-info/requires.txt
+youbot_control.egg-info/top_level.txt
+youbot_control.egg-info/zip-safe

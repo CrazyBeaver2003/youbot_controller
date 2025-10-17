@@ -1,0 +1,3 @@
+[console_scripts]
+youbot_driver = youbot_control.youbot_driver:main
+
