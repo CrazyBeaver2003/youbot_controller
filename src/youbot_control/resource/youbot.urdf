@@ -1,6 +1,16 @@
 <?xml version="1.0" ?>
 <robot name="youbot">
     <webots>
+        <device reference="lidar" type="Lidar">
+            <ros>
+                <enabled>true</enabled>
+                <topicName>/scan</topicName>
+                <scanRate>10</scanRate>
+                <updateRate>10</updateRate>
+                <alwaysOn>true</alwaysOn>
+                <frameName>laser_frame</frameName>
+            </ros>
+        </device>  
         <plugin type="webots_ros2_driver::Ros2IMU">
             <enabled>True</enabled>
             <topicName>/imu</topicName>

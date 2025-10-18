@@ -11,7 +11,8 @@ def generate_launch_description():
     robot_description_path = os.path.join(pkg_dir, 'resource', 'youbot.urdf')
 
     webots = WebotsLauncher(
-        world=os.path.join(pkg_dir, 'worlds', 'youbot1.wbt')
+        world=os.path.join(pkg_dir, 'worlds', 'youbot_labirinth.wbt'),
+        ros2_supervisor=True,
     )
     
     my_robot_driver = WebotsController(
@@ -26,9 +27,16 @@ def generate_launch_description():
         package='youbot_control',
         executable='youbot_odometry',
     )
-    
+    laser_tf = Node(
+        package='tf2_ros',
+        executable='static_transform_publisher',
+        name='laser_tf',
+        arguments=['0.28', '0', '0', '0', '0', '0', 'base_link', 'laser_frame']
+    )
     return LaunchDescription([
         webots,
+        webots._supervisor,
+        laser_tf,
         my_robot_driver,
         odometry_publisher,
         launch.actions.RegisterEventHandler(
