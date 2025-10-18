@@ -4,6 +4,7 @@ from geometry_msgs.msg import PoseStamped, PointStamped, TransformStamped
 from nav_msgs.msg import Odometry
 from tf2_ros import TransformBroadcaster
 from sensor_msgs.msg import Imu
+import numpy as np
 
 class OdometryPublisher(Node):
     def __init__(self):
@@ -22,6 +23,16 @@ class OdometryPublisher(Node):
         self.prev_x = 0.0
         self.prev_y = 0.0
         self.prev_z = 0.0
+        self.prev_time = None
+        
+        # Фильтрация скорости (простое экспоненциальное сглаживание)
+        self.filtered_vx = 0.0
+        self.filtered_vy = 0.0
+        self.filtered_vz = 0.0
+        self.alpha = 0.3  # Коэффициент сглаживания (0-1, меньше = более гладко)
+        
+        # Флаг инициализации
+        self.initialized = False
 
         self.timer = self.create_timer(0.1, self.publish_odometry)
 
@@ -32,6 +43,8 @@ class OdometryPublisher(Node):
         self.imu = msg
     
     def publish_odometry(self):
+        current_time = self.get_clock().now()
+        
         gps_values = self.gps.point
         x = gps_values.x
         y = gps_values.y
@@ -48,18 +61,44 @@ class OdometryPublisher(Node):
         z_orient = orientation.z
         w_orient = orientation.w
 
-        # Calculate linear velocities
-        dt = 0.1
-        linear_x = (x - self.prev_x) / dt 
-        linear_y = (y - self.prev_y) / dt
-        linear_z = (z - self.prev_z) / dt
+        # Инициализация при первом запуске
+        if not self.initialized:
+            self.prev_x = x
+            self.prev_y = y
+            self.prev_z = z
+            self.prev_time = current_time
+            self.initialized = True
+            return
+
+        # Вычисление реального dt
+        if self.prev_time is not None:
+            dt = (current_time - self.prev_time).nanoseconds / 1e9
+            
+            # Защита от деления на ноль и слишком больших dt
+            if dt > 0.001 and dt < 1.0:
+                # Вычисление мгновенных скоростей
+                raw_vx = (x - self.prev_x) / dt 
+                raw_vy = (y - self.prev_y) / dt
+                raw_vz = (z - self.prev_z) / dt
+                
+                # Экспоненциальное сглаживание
+                self.filtered_vx = self.alpha * raw_vx + (1 - self.alpha) * self.filtered_vx
+                self.filtered_vy = self.alpha * raw_vy + (1 - self.alpha) * self.filtered_vy
+                self.filtered_vz = self.alpha * raw_vz + (1 - self.alpha) * self.filtered_vz
+                
+                # Ограничение максимальной скорости (защита от выбросов)
+                max_velocity = 5.0  # м/с
+                self.filtered_vx = np.clip(self.filtered_vx, -max_velocity, max_velocity)
+                self.filtered_vy = np.clip(self.filtered_vy, -max_velocity, max_velocity)
+                self.filtered_vz = np.clip(self.filtered_vz, -max_velocity, max_velocity)
 
         self.prev_x = x
         self.prev_y = y
         self.prev_z = z
+        self.prev_time = current_time
 
         odom_msg = Odometry()
-        odom_msg.header.stamp = self.get_clock().now().to_msg()
+        odom_msg.header.stamp = current_time.to_msg()
         odom_msg.header.frame_id = 'odom'
         odom_msg.child_frame_id = 'base_link'
 
@@ -72,19 +111,37 @@ class OdometryPublisher(Node):
         odom_msg.pose.pose.orientation.z = z_orient
         odom_msg.pose.pose.orientation.w = w_orient
 
-        odom_msg.twist.twist.linear.x = linear_x
-        odom_msg.twist.twist.linear.y = linear_y
-        odom_msg.twist.twist.linear.z = linear_z
+        # Используем отфильтрованные скорости
+        odom_msg.twist.twist.linear.x = self.filtered_vx
+        odom_msg.twist.twist.linear.y = self.filtered_vy
+        odom_msg.twist.twist.linear.z = self.filtered_vz
 
         odom_msg.twist.twist.angular.x = angular_x
         odom_msg.twist.twist.angular.y = angular_y
         odom_msg.twist.twist.angular.z = angular_z
+        
+        # Установка ковариации (важно для SLAM)
+        # Позиция (x, y, z, roll, pitch, yaw)
+        odom_msg.pose.covariance[0] = 0.01   # x
+        odom_msg.pose.covariance[7] = 0.01   # y
+        odom_msg.pose.covariance[14] = 0.01  # z
+        odom_msg.pose.covariance[21] = 0.1   # roll
+        odom_msg.pose.covariance[28] = 0.1   # pitch
+        odom_msg.pose.covariance[35] = 0.05  # yaw
+        
+        # Скорость (vx, vy, vz, vroll, vpitch, vyaw)
+        odom_msg.twist.covariance[0] = 0.1   # vx
+        odom_msg.twist.covariance[7] = 0.1   # vy
+        odom_msg.twist.covariance[14] = 0.1  # vz
+        odom_msg.twist.covariance[21] = 0.1  # vroll
+        odom_msg.twist.covariance[28] = 0.1  # vpitch
+        odom_msg.twist.covariance[35] = 0.1  # vyaw
 
-        self.odometry_publisher.publish(odom_msg)  # Publish the odometry message to ROSpublisher.publish(odom_msg)
+        self.odometry_publisher.publish(odom_msg)
 
         # Broadcast TF transform
         tf_msg = TransformStamped()
-        tf_msg.header.stamp = self.get_clock().now().to_msg()
+        tf_msg.header.stamp = current_time.to_msg()
         tf_msg.header.frame_id = 'odom'
         tf_msg.child_frame_id = 'base_link'
         tf_msg.transform.translation.x = x
