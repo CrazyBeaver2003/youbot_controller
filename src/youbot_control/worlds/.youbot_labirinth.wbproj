@@ -7,3 +7,5 @@ centralWidgetVisible: 1
 orthographicViewHeight: 1
 textFiles: -1
 consoles: Console:All:All
+renderingDevicePerspectives: my_robot:camera;0;0.671875;0;0
+renderingDevicePerspectives: my_robot:range-finder;0;0.671875;0;0
