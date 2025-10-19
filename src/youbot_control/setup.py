@@ -17,6 +17,7 @@ setup(
         ('share/' + package_name + '/resource', ['resource/youbot.urdf']),
         ('share/' + package_name + '/config', glob('config/*.yaml')),
         ('share/' + package_name + '/rviz', glob('rviz/*.rviz')),
+        ('share/' + package_name + '/maps', glob('maps/*')),
         ('share/' + package_name, ['package.xml']),
     ],
     install_requires=['setuptools'],
@@ -35,6 +36,7 @@ setup(
             'youbot_driver = youbot_control.youbot_driver:main',
             'youbot_odometry = youbot_control.youbot_odometry:main',
             'sensor_test = youbot_control.sensor_test:main',
+            'set_initial_pose = youbot_control.set_initial_pose:main',
         ],
     },
 )

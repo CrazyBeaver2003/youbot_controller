@@ -3,3 +3,7 @@ build/
 install/
 log/
 youbot/
+
+.gitignore
+
+.vscode/
