@@ -16,6 +16,7 @@ setup(
         ('share/' + package_name + '/worlds', glob('worlds/*.wbt')),
         ('share/' + package_name + '/resource', ['resource/youbot.urdf']),
         ('share/' + package_name + '/config', glob('config/*.yaml')),
+        ('share/' + package_name + '/rviz', glob('rviz/*.rviz')),
         ('share/' + package_name, ['package.xml']),
     ],
     install_requires=['setuptools'],

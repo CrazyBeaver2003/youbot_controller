@@ -12,8 +12,8 @@ class OdometryPublisher(Node):
 
         self.odometry_publisher = self.create_publisher(Odometry, 'odom', 10)
 
-        self.gps_subscriber = self.create_subscription(PointStamped, 'my_robot/gps', self.gps_callback, 10)
-        self.imu_subscriber = self.create_subscription(Imu, 'imu', self.imu_callback, 10)
+        self.gps_subscriber = self.create_subscription(PointStamped, 'my_robot/gps', self.gps_callback, 1)
+        self.imu_subscriber = self.create_subscription(Imu, 'imu', self.imu_callback, 1)
 
         self.tf_broadcaster = TransformBroadcaster(self)
 
