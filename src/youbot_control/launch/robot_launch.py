@@ -19,6 +19,7 @@ def generate_launch_description():
         robot_name='my_robot',
         parameters=[
             {'robot_description': robot_description_path},
+            {'use_sim_time': True},
         ],
         respawn=True
     )
@@ -26,12 +27,14 @@ def generate_launch_description():
     odometry_publisher = Node(
         package='youbot_control',
         executable='youbot_odometry',
+        parameters=[{'use_sim_time': True}],
     )
     laser_tf = Node(
         package='tf2_ros',
         executable='static_transform_publisher',
         name='laser_tf',
-        arguments=['0.28', '0', '0', '0', '0', '0', 'base_link', 'laser_frame']
+        arguments=['0.28', '0', '0', '0', '0', '0', 'base_link', 'laser_frame'],
+        parameters=[{'use_sim_time': True}],
     )
     return LaunchDescription([
         webots,

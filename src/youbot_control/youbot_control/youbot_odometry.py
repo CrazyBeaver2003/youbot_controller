@@ -122,20 +122,20 @@ class OdometryPublisher(Node):
         
         # Установка ковариации (важно для SLAM)
         # Позиция (x, y, z, roll, pitch, yaw)
-        odom_msg.pose.covariance[0] = 0.01   # x
-        odom_msg.pose.covariance[7] = 0.01   # y
-        odom_msg.pose.covariance[14] = 0.01  # z
-        odom_msg.pose.covariance[21] = 0.1   # roll
-        odom_msg.pose.covariance[28] = 0.1   # pitch
-        odom_msg.pose.covariance[35] = 0.05  # yaw
+        # odom_msg.pose.covariance[0] = 0.01   # x
+        # odom_msg.pose.covariance[7] = 0.01   # y
+        # odom_msg.pose.covariance[14] = 0.01  # z
+        # odom_msg.pose.covariance[21] = 0.1   # roll
+        # odom_msg.pose.covariance[28] = 0.1   # pitch
+        # odom_msg.pose.covariance[35] = 0.05  # yaw
         
-        # Скорость (vx, vy, vz, vroll, vpitch, vyaw)
-        odom_msg.twist.covariance[0] = 0.1   # vx
-        odom_msg.twist.covariance[7] = 0.1   # vy
-        odom_msg.twist.covariance[14] = 0.1  # vz
-        odom_msg.twist.covariance[21] = 0.1  # vroll
-        odom_msg.twist.covariance[28] = 0.1  # vpitch
-        odom_msg.twist.covariance[35] = 0.1  # vyaw
+        # # Скорость (vx, vy, vz, vroll, vpitch, vyaw)
+        # odom_msg.twist.covariance[0] = 0.1   # vx
+        # odom_msg.twist.covariance[7] = 0.1   # vy
+        # odom_msg.twist.covariance[14] = 0.1  # vz
+        # odom_msg.twist.covariance[21] = 0.1  # vroll
+        # odom_msg.twist.covariance[28] = 0.1  # vpitch
+        # odom_msg.twist.covariance[35] = 0.1  # vyaw
 
         self.odometry_publisher.publish(odom_msg)
 

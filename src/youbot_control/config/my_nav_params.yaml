@@ -1,0 +1,76 @@
+amcl:
+  ros__parameters:
+    use_sim_time: True
+    alpha1: 0.2
+    alpha2: 0.2
+    alpha3: 0.2
+    alpha4: 0.2
+    alpha5: 0.2
+    base_frame_id: "base_link"
+    beam_skip_distance: 0.5
+    beam_skip_error_threshold: 0.9
+    beam_skip_threshold: 0.3
+    do_beamskip: false
+    global_frame_id: "map"
+    lambda_short: 0.1
+    laser_likelihood_max_dist: 2.0
+    laser_max_range: 100.0
+    laser_min_range: -1.0
+    laser_model_type: "likelihood_field"
+    max_beams: 60
+    max_particles: 2000
+    min_particles: 500
+    odom_frame_id: "odom"
+    pf_err: 0.05
+    pf_z: 0.99
+    recovery_alpha_fast: 0.0
+    recovery_alpha_slow: 0.0
+    resample_interval: 1
+    robot_model_type: "nav2_amcl::OmniMotionModel"
+    save_pose_rate: 0.5
+    sigma_hit: 0.2
+    tf_broadcast: true
+    transform_tolerance: 1.0
+    update_min_a: 0.2
+    update_min_d: 0.25
+    z_hit: 0.5
+    z_max: 0.05
+    z_rand: 0.5
+    z_short: 0.05
+    scan_topic: scan
+  
+controller_server:
+  ros_parameters:
+    controller_frequency: 20.0 #5.0
+    costmap_update_timeout: 0.3
+    publish_zero_velocity: true
+    controller_plugins: ["FollowPath"] #["FollowPath"] - default
+    progress_checker_plugins: "progress_checker"
+    goal_checker_plugins: ["goal_checker"]
+    min_x_velocity_threshold: 0.05
+    min_y_velocity_threshold: 0.05
+    min_theta_velocity_threshold: 0.05
+    failure_tolerance: 0.0
+    odom_topic: "odom"
+    odom_duration: 0.1
+    enable_stamped_cmd_vel: false
+    search_window: 2.0
+
+    progress_checker:
+      plugin: "nav2_controller::PoseProgressChecker"
+      required_movement_radius: 0.5
+      required_movement_angle: 0.5
+      movement_time_allowance: 10.0
+    
+    goal_checker:
+      plugin: "nav2_controller::StoppedGoalChecker"
+      trans_stopped_velocity: 0.25      # Velocity below is considered to be stopped at tolerance met (m/s).
+      rot_stopped_velocity: 0.25        # Velocity below is considered to be stopped at tolerance met (rad/s).
+      xy_goal_tolerance: 0.25           # Tolerance to meet goal completion criteria (m).
+      yaw_goal_tolerance: 0.25          # Tolerance to meet goal completion criteria (rad).
+      stateful: true                    # Whether to check for XY position tolerance after rotating to goal orientation in case of minor localization changes.
+
+    FollowPath:
+      plugin: "dwb_core::DWBLocalPlanner"
+
+

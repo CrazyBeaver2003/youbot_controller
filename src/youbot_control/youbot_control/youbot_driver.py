@@ -40,7 +40,7 @@ class YouBotDriver:
 
         linear_x = self.__target_twist.linear.x
         linear_y = -self.__target_twist.linear.y
-        angular_z = self.__target_twist.angular.z
+        angular_z = -self.__target_twist.angular.z
 
         command_wheel_1 = (linear_x - linear_y - (self.__lx + self.__ly) * angular_z) / self.__wheel_radius
         command_wheel_2 = (linear_x + linear_y + (self.__lx + self.__ly) * angular_z) / self.__wheel_radius
