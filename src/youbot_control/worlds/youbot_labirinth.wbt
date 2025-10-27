@@ -4,9 +4,11 @@ EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/project
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/backgrounds/protos/TexturedBackgroundLight.proto"
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/floors/protos/Floor.proto"
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/factory/containers/protos/WoodenBox.proto"
-EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/robots/kuka/youbot/protos/KukaBox.proto"
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/robots/kuka/youbot/protos/Youbot.proto"
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/apartment_structure/protos/Wall.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/toys/protos/RubberDuck.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/fruits/protos/Apple.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/balls/protos/Ball.proto"
 
 WorldInfo {
   info [
@@ -42,8 +44,8 @@ WorldInfo {
   ]
 }
 Viewpoint {
-  orientation -0.3722500983032738 -0.7043060272784544 0.6044690928843623 5.5743173856215105
-  position -10.615229103545719 4.552557368111102 7.134092929892033
+  orientation 0.006380540521680837 0.9996098866807779 0.027191233011651456 0.5509346202552142
+  position -9.75573036025249 -0.6731190572667751 6.34544766874093
   follow "youBot"
 }
 TexturedBackground {
@@ -53,11 +55,15 @@ TexturedBackgroundLight {
 Floor {
   size 100 100
 }
+Apple {
+  translation 6.89 4.59 0.13
+  scale 0.5
+}
 WoodenBox {
-  translation -2.99455 -7.75878 0.2
+  translation -2.99455 -7.75878 0
   rotation 0 0 1 -1.5707963267948966
   name "wooden box(1)"
-  size 0.6 0.6 0.4
+  size 0.6 0.6 0.2
 }
 Wall {
   translation 1.58 2.38 0
@@ -131,25 +137,21 @@ Wall {
   size 0.1 15 1
 }
 WoodenBox {
-  translation 7.09545 -4.98878 0.2
+  translation 7.09545 -4.98878 0
   rotation 0 0 1 -1.5707963267948966
-  size 0.6 0.6 0.4
+  size 0.6 0.6 0.2
 }
 WoodenBox {
-  translation 7.11545 4.84122 0.2
+  translation 7.11545 4.84122 0
   rotation 0 0 1 -1.5707963267948966
   name "wooden box(2)"
-  size 0.6 0.6 0.4
+  size 0.6 0.6 0.2
 }
 WoodenBox {
   translation -7.11455 4.96122 0.2
   rotation 0 0 1 -1.5707963267948966
   name "wooden box(3)"
   size 0.6 0.6 0.4
-}
-KukaBox {
-  translation 7.09263 -2.3129 0.412492
-  rotation -2.5263741715914474e-17 2.084258691562962e-16 -1 1.5707963267948966
 }
 Youbot {
   translation 0 0 0.101594
@@ -193,4 +195,13 @@ Wall {
   translation 0 5.27 0
   rotation 0 0 1 1.57
   size 0.1 15 1
+}
+RubberDuck {
+  translation -3.2 -7.74 0.12
+  rotation 0 0 1 3.14159
+  scale 0.7
+}
+Ball {
+  translation 6.87 -4.99 0.1325
+  color 0.3 0.48 1
 }

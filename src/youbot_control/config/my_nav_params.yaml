@@ -71,6 +71,34 @@ controller_server:
       stateful: true                    # Whether to check for XY position tolerance after rotating to goal orientation in case of minor localization changes.
 
     FollowPath:
-      plugin: "dwb_core::DWBLocalPlanner"
-
-
+      plugin: "nav2_mppi_controller::MPPIController" #Model Predictive Path Integral Controller
+      motion_model: "Omni" # DiffDrive, Omni, Ackermann
+      critics: ["ConstraintCritic", "CostCritic","GoalCritic", 
+                "GoalAngleCritic","PathAlignCritic", "PathAngleCritic", 
+                "PathFollowCritic","PreferForwardCritic", "TwirlingCritic"]
+      iteration_count: 1 # Iteration count in the MPPI algorithm. Recommended to remain as 1 and instead prefer larger batch sizes.
+      batch_size: 1000 # Count of randomly sampled candidate trajectories from current optimal control sequence in a given iteration. 1000 @ 50 Hz or 2000 @ 30 Hz seems to produce good results.
+      time_steps: 56  # Number of time steps (points) in candidate trajectories.
+      model_dt: 0.2 # Length of each time step’s dt timestep, in seconds. time_steps * model_dt is the prediction horizon.
+      vx_std: 0.2 # Sampling standard deviation in linear x velocity.
+      vy_std: 0.2 # Sampling standard deviation in linear y velocity.
+      wz_std: 0.2 # Sampling standard deviation in angular z velocity.
+      vx_max: 0.3 # Target maximum forward velocity (m/s).
+      vx_min: -0.3 # Target maximum reverse velocity (m/s).
+      vy_max: 0.3 # Target maximum lateral velocity (m/s).
+      wz_max: 0.5 # Target maximum angular velocity (rad/s).
+      ax_max: 0.8 # Maximum forward acceleration (m/s^2).
+      ax_min: -0.8 #Maximum deceleration along the X-axis (m/s^2).
+      ay_max: 0.8 # Maximum lateral acceleration (m/s^2).
+      ay_min: -0.8 # Maximum deceleration along the Y-axis (m/s^2).
+      az_max: 10.0 # Maximum angular acceleration (rad/s^2).
+      temperature: 0.3 #Selectiveness of trajectories by their costs (The closer this value to 0, the “more” we take in consideration controls with less cost), 
+                        # 0 mean use control with best cost, huge value will lead to just taking mean of all trajectories without cost consideration.
+      gamma: 0.015 # A trade-off between smoothness (high) and low energy (low).
+      visualize: false # Whether to publish debugging trajectories for visualization
+      publish_optimal_trajectory: false # Whether to publish the optimal trajectory, computed by MPC
+      retry_attempt_limit: 1 # Number of times to retry if controller fails to produce a valid command.
+      reset_period: 1.0 #Required time of inactivity to reset optimizer (only in Humble due to backport ABI policies).
+      regenerate_noises: false
+      publish_critics_stats: false
+      

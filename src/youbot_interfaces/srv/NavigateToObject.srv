@@ -1,0 +1,7 @@
+# Request
+string waypoint_name
+---
+# Response
+bool success
+string message
+geometry_msgs/PoseStamped pose
