@@ -92,14 +92,9 @@ controller_server:
     # Goal checker parameters
     precise_goal_checker:
       plugin: "nav2_controller::SimpleGoalChecker"
-      xy_goal_tolerance: 0.15
-      yaw_goal_tolerance: 0.1
+      xy_goal_tolerance: 0.05
+      yaw_goal_tolerance: 0.05
       stateful: True
-    # general_goal_checker:
-    #   stateful: True
-    #   plugin: "nav2_controller::SimpleGoalChecker"
-    #   xy_goal_tolerance: 0.15
-    #   yaw_goal_tolerance: 0.1
 
     FollowPath:
       # Model Predictive Path Integral Controller

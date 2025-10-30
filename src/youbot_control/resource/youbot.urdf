@@ -47,6 +47,8 @@
             <accelerometerName>accelerometer</accelerometerName>
         </plugin>
 
-        <plugin type="youbot_control.youbot_driver.YouBotDriver" />
+        <plugin type="youbot_control.drivers.youbot_driver.YouBotDriver" />
+        <plugin type="youbot_control.drivers.manipulator_driver.ManipulatorDriver" />
+        <plugin type="youbot_control.drivers.gripper_driver.GripperDriver" />
     </webots>
 </robot>

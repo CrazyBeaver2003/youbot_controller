@@ -34,12 +34,16 @@ setup(
     },
     entry_points={
         'console_scripts': [
-            'youbot_driver = youbot_control.youbot_driver:main',
-            'youbot_odometry = youbot_control.youbot_odometry:main',
-            'sensor_test = youbot_control.sensor_test:main',
-            'goal_send_node = youbot_control.goal_send_node:main',
-            'onnx_detection_node = youbot_control.onnx_executor:main',
-            'pt_detection_node = youbot_control.pt_detection_node:main',
+            'youbot_driver = youbot_control.drivers.youbot_driver:main',
+            
+            'youbot_odometry = youbot_control.nodes.youbot_odometry:main',
+            'goal_send_node = youbot_control.nodes.goal_send_node:main',
+
+            'onnx_detection_node = youbot_control.detection.onnx_executor:main',
+            'pt_detection_node = youbot_control.detection.pt_detection_node:main',
+            'object_coordinate_finder = youbot_control.detection.object_coordinate_finder:main',
+            
+            'sensor_test = youbot_control.tests.sensor_test:main',
         ],
     },
 )

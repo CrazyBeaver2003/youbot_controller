@@ -7,3 +7,9 @@ youbot/
 .gitignore
 
 .vscode/
+
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.swp

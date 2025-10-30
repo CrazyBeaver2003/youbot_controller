@@ -44,8 +44,8 @@ WorldInfo {
   ]
 }
 Viewpoint {
-  orientation 0.006380540521680837 0.9996098866807779 0.027191233011651456 0.5509346202552142
-  position -9.75573036025249 -0.6731190572667751 6.34544766874093
+  orientation 0.0214797747007168 0.9997057793948738 0.01126827064345914 1.4942044664678802
+  position -2.3059519588691955 -1.4007098723869138 28.872153748688874
   follow "youBot"
 }
 TexturedBackground {
@@ -164,12 +164,12 @@ Youbot {
   window "<none>"
   bodySlot [
     Camera {
-      translation 0.28 0 0.2
+      translation 0.28 0 0.05
       width 640
       height 640
     }
     RangeFinder {
-      translation 0.28 0 0.2
+      translation 0.28 0 0.05
       width 640
       height 640
       maxRange 10

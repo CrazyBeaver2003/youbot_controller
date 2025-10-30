@@ -8,6 +8,7 @@ from ament_index_python.packages import get_package_share_directory
 
 def generate_launch_description():
     youbot_control_dir = get_package_share_directory('youbot_control')
+    rviz_config_path = os.path.join(youbot_control_dir, 'rviz', 'nav_config.rviz')
 
     # Лаунч робота (запускается сразу)
     robot_launch = IncludeLaunchDescription(
@@ -61,6 +62,15 @@ def generate_launch_description():
         ]
     )
 
+    rviz_launch = Node(
+        package='rviz2',
+        executable='rviz2',
+        name='rviz2',
+        output='screen',
+        arguments=['-d', rviz_config_path],
+        parameters=[{'use_sim_time': True}]
+    )
+
     return LaunchDescription([
         # Сразу запускаем
         robot_launch,        
@@ -68,4 +78,5 @@ def generate_launch_description():
         detection_node,
         navigation_launch,
         goal_send_node,
+        rviz_launch,
     ])
