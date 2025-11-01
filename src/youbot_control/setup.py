@@ -44,6 +44,10 @@ setup(
             'object_coordinate_finder = youbot_control.detection.object_coordinate_finder:main',
             
             'sensor_test = youbot_control.tests.sensor_test:main',
+
+            'gripper_controller_node = youbot_control.nodes.gripper_controller_node:main',
+            'arm_controller = youbot_control.nodes.arm_controller:main',
+            'set_initial_pose = youbot_control.nodes.set_initial_pose:main',
         ],
     },
 )

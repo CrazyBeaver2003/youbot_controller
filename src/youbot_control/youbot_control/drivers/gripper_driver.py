@@ -1,5 +1,5 @@
 import rclpy
-from std_msgs.msg import Float64MultiArray
+from std_msgs.msg import Float64
 
 class GripperDriver:
     def init(self, webots_node, properties):
@@ -15,7 +15,8 @@ class GripperDriver:
 
         for motor in self.__finger_motors:
             motor.setPosition(float('inf'))
-            motor.setVelocity(0.0)
+            # Установим небольшую скорость по умолчанию, чтобы позиционные команды выполнялись
+            motor.setVelocity(1.0)
 
         self.__left_finger_sensor = self.__robot.getDevice('finger::leftsensor')
         self.__right_finger_sensor = self.__robot.getDevice('finger::rightsensor')
@@ -31,12 +32,12 @@ class GripperDriver:
 
         self.__node = rclpy.create_node('gripper_driver_node')
         self.__position_subscriber = self.__node.create_subscription(
-            Float64MultiArray,
-            'target_position',
+            Float64,
+            'gripper_target_position',
             self.__position_callback,
             10)
         self.state_publisher = self.__node.create_publisher(
-            Float64MultiArray,
+            Float64,
             'gripper_state',
             10)
         
@@ -51,10 +52,15 @@ class GripperDriver:
     def step(self):
         rclpy.spin_once(self.__node, timeout_sec=0)
 
-        #Отправка команд на моторы
+        # Отправка команд на моторы (каждому пальцу одна и та же позиция)
         for i, motor in enumerate(self.__finger_motors):
             if self.__target_position is not None:
-                motor.setPosition(self.__target_position[i])
+                try:
+                    pos = float(self.__target_position)
+                    motor.setPosition(pos)
+                except Exception as e:
+                    # Логируем некорректное значение и продолжаем
+                    self.__node.get_logger().error(f'Invalid target position: {self.__target_position} ({e})')
 
         # Публикуем состояние захвата
         positions = {}
@@ -62,6 +68,6 @@ class GripperDriver:
             positions[i] = sensor.getValue()
 
         # 0 - левый палец, 1 - правый палец
-        msg = Float64MultiArray()
-        msg.data = list(positions.values())
+        msg = Float64()
+        msg.data = positions[0] 
         self.state_publisher.publish(msg)

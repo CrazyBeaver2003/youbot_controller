@@ -144,17 +144,23 @@ def generate_launch_description():
             ]
         ),
         
-        # # Установка начальной позиции робота (с задержкой 5 секунд)
-        # TimerAction(
-        #     period=5.0,
-        #     actions=[
-        #         Node(
-        #             package='youbot_control',
-        #             executable='set_initial_pose',
-        #             name='set_initial_pose',
-        #             output='screen',
-        #             parameters=[{'use_sim_time': use_sim_time}]
-        #         )
-        #     ]
-        # ),
+        # Установка начальной позиции робота (с задержкой 3 секунды)
+        TimerAction(
+            period=3.0,
+            actions=[
+                Node(
+                    package='youbot_control',
+                    executable='set_initial_pose',
+                    name='set_initial_pose',
+                    output='screen',
+                    parameters=[
+                        {'use_sim_time': use_sim_time},
+                        {'x': 0.0},      # Начальная позиция X (в метрах)
+                        {'y': 0.0},      # Начальная позиция Y (в метрах)
+                        {'z': 0.0},      # Начальная позиция Z (в метрах)
+                        {'yaw': 0.0}     # Начальная ориентация yaw (в радианах)
+                    ]
+                )
+            ]
+        ),
     ])

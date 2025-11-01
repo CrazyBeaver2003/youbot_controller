@@ -61,6 +61,7 @@ def generate_launch_description():
             )
         ]
     )
+    
 
     rviz_launch = Node(
         package='rviz2',

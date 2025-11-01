@@ -34,8 +34,10 @@ class ManipulatorDriver:
             self.__arm_5_motor
         ]
         for motor in self.__arm_motors:
-            motor.setPosition(float('inf'))
-            motor.setVelocity(0.0)
+            # Устанавливаем начальную позицию (home position)
+            motor.setPosition(0.0)
+            # Устанавливаем скорость для движения к целевой позиции
+            motor.setVelocity(1.0)
         self.__arm_1_sensor = self.__robot.getDevice('arm1sensor')
         self.__arm_2_sensor = self.__robot.getDevice('arm2sensor')
         self.__arm_3_sensor = self.__robot.getDevice('arm3sensor')
@@ -56,7 +58,7 @@ class ManipulatorDriver:
         self.__tf_broadcaster = TransformBroadcaster(self.__node)
         self.__joint_state_publisher = self.__node.create_publisher(
             JointState,
-            'joint_states', 
+            'arm_joint_states', 
             10)
         self.__target_subscriber = self.__node.create_subscription(
             Float64MultiArray,
@@ -70,9 +72,10 @@ class ManipulatorDriver:
     def __target_callback(self, msg):
         try:
             if len(msg.data) == len(self.__arm_motors):
-                self.__joint_commands = msg.data
+                self.__joint_commands = list(msg.data)
+                self.__node.get_logger().info(f'Received arm target: {[f"{x:.3f}" for x in self.__joint_commands]}')
             else:
-                self.__node.get_logger().error("Received target positions length does not match number of arm motors.")
+                self.__node.get_logger().error(f"Received target positions length {len(msg.data)} does not match number of arm motors {len(self.__arm_motors)}.")
         except Exception as e:
             self.__node.get_logger().error(f"Error in target callback: {e}")
     
