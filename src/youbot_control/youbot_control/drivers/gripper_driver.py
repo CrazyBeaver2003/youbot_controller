@@ -14,9 +14,9 @@ class GripperDriver:
         ]
 
         for motor in self.__finger_motors:
-            motor.setPosition(float('inf'))
+            motor.setPosition(0.0)
             # Установим небольшую скорость по умолчанию, чтобы позиционные команды выполнялись
-            motor.setVelocity(1.0)
+            # motor.setVelocity(0.0)
 
         self.__left_finger_sensor = self.__robot.getDevice('finger::leftsensor')
         self.__right_finger_sensor = self.__robot.getDevice('finger::rightsensor')

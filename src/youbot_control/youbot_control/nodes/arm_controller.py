@@ -33,7 +33,7 @@ class ArmController(Node):
         # Publishers
         self.arm_target_publisher = self.create_publisher(
             Float64MultiArray,
-            'arm_target_positions',
+            'arm_target_joints_positions',
             10
         )
 

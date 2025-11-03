@@ -48,6 +48,8 @@ setup(
             'gripper_controller_node = youbot_control.nodes.gripper_controller_node:main',
             'arm_controller = youbot_control.nodes.arm_controller:main',
             'set_initial_pose = youbot_control.nodes.set_initial_pose:main',
+
+            'pickup_action_server = youbot_control.actions.pickup_action_server:main',
         ],
     },
 )

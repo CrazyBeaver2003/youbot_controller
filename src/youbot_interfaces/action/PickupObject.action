@@ -1,0 +1,14 @@
+# Goal
+string object_name
+---
+# Result
+bool success
+string message
+float64 final_gap
+---
+# Feedback
+string current_state
+float64 current_x
+float64 current_y
+float64 current_z
+string status_message

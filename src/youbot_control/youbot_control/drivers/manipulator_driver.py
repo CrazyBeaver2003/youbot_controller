@@ -62,7 +62,7 @@ class ManipulatorDriver:
             10)
         self.__target_subscriber = self.__node.create_subscription(
             Float64MultiArray,
-            'arm_target_positions',
+            'arm_target_joints_positions',
             self.__target_callback,
             10
         )

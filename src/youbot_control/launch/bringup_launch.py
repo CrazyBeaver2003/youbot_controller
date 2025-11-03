@@ -50,6 +50,21 @@ def generate_launch_description():
         ]
     )
 
+    object_coordinate_finder = TimerAction(
+        period=3.0,
+        actions=[
+            Node(
+                package='youbot_control',
+                executable='object_coordinate_finder',
+                name='object_coordinate_finder',
+                output='screen',
+                parameters=[
+                    {'use_sim_time': True}
+                ]
+            )
+        ]
+    )
+
     goal_send_node = TimerAction(
         period=8.0,
         actions=[
@@ -62,7 +77,24 @@ def generate_launch_description():
         ]
     )
     
-
+    arm_controller = Node(
+        package='youbot_control',
+        executable='arm_controller',
+        name='arm_controller',
+        output='screen',
+        parameters=[
+            {'use_sim_time': True}
+        ]
+    )
+    gripper_controller = Node(
+        package='youbot_control',
+        executable='gripper_controller_node',
+        name='gripper_controller',
+        output='screen',
+        parameters=[
+            {'use_sim_time': True}
+        ]
+    )
     rviz_launch = Node(
         package='rviz2',
         executable='rviz2',
@@ -74,9 +106,12 @@ def generate_launch_description():
 
     return LaunchDescription([
         # Сразу запускаем
-        robot_launch,        
+        robot_launch,
+        arm_controller,
+        gripper_controller,
         # С задержками
         detection_node,
+        object_coordinate_finder,
         navigation_launch,
         goal_send_node,
         rviz_launch,
