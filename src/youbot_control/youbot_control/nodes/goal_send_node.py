@@ -14,7 +14,7 @@ class GoalSendService(Node):
             'home': [0.0, 0.0, 0.0],
             'ball': [6.3, -5.0, 0.0],
             'apple': [6.5, 4.2, 0.8],
-            'duck': [-3.7, -7.7, 0.0],
+            'cube': [-3.7, -7.7, 0.0],
             'release_point': [-6.48, 4.44, 2.55]
         }
 

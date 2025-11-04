@@ -95,6 +95,15 @@ def generate_launch_description():
             {'use_sim_time': True}
         ]
     )
+    pickup_action_server = Node(
+        package='youbot_control',
+        executable='pickup_action_server',
+        name='pickup_action_server',
+        output='screen',
+        parameters=[
+            {'use_sim_time': True}
+        ]
+    )
     rviz_launch = Node(
         package='rviz2',
         executable='rviz2',
@@ -109,6 +118,7 @@ def generate_launch_description():
         robot_launch,
         arm_controller,
         gripper_controller,
+        pickup_action_server,
         # С задержками
         detection_node,
         object_coordinate_finder,

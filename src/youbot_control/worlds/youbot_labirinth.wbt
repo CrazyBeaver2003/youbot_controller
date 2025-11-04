@@ -6,7 +6,6 @@ EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/project
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/factory/containers/protos/WoodenBox.proto"
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/robots/kuka/youbot/protos/Youbot.proto"
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/apartment_structure/protos/Wall.proto"
-EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/toys/protos/RubberDuck.proto"
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/fruits/protos/Apple.proto"
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/balls/protos/Ball.proto"
 
@@ -44,8 +43,8 @@ WorldInfo {
   ]
 }
 Viewpoint {
-  orientation 0.03015611967094304 0.9995438237041128 0.0016591990094939185 1.5740490381384311
-  position -0.00834021406855645 -2.0804507365227427 21.2994276521818
+  orientation 0.008937939378168334 0.999736339398242 0.021151002961453214 1.6544921251455293
+  position 2.1322772313116287 -2.7673567171972264 37.15883776994565
   follow "youBot"
 }
 TexturedBackground {
@@ -196,10 +195,31 @@ Wall {
   rotation 0 0 1 1.57
   size 0.1 15 1
 }
-RubberDuck {
-  translation -3.26 -7.74 0.11
-  rotation 0 0 1 3.14159
-  scale 0.4
+DEF YellowCube Solid {
+  translation -3.2 -7.76 0.025
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 1 1 0
+        roughness 0.5
+        metalness 0
+      }
+      geometry Box {
+        size 0.05 0.05 0.05
+      }
+    }
+  ]
+  name "yellow_cube"
+  boundingObject Box {
+    size 0.04 0.04 0.04
+  }
+  physics Physics {
+    density -1
+    mass 0.01
+  }
+  recognitionColors [
+    1 1 0
+  ]
 }
 Ball {
   translation 6.87 -4.99 0.1225
