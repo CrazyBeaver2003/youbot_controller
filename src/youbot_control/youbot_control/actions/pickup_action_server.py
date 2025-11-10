@@ -95,7 +95,7 @@ class PickupAction(Node):
         # Constants
         self.MIN_GAP = 0.021
         self.GRIPPER_OPEN_GAP = 0.071
-        self.GRIPPER_CLOSED_GAP = 0.04
+        self.GRIPPER_CLOSED_GAP = 0.035
         self.POSITION_TOLERANCE = 0.02
         self.GRIPPER_TOLERANCE = 0.005
         self.YOUBOT_PLATE_POINT = {'x': -0.3, 'y': 0.0, 'z': 0.18}
@@ -265,7 +265,6 @@ class PickupAction(Node):
 
         # TODO: Остальная логика состояний
         current_state = PickupState.MOVING_TO_OBJECT
-        total_states = 7
 
         while current_state != PickupState.COMPLETED:
             if goal_handle.is_cancel_requested:
