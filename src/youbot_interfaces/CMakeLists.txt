@@ -17,6 +17,7 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "srv/NavigateToObject.srv"
   "msg/BoundingBox.msg"
   "msg/BoundingBoxArray.msg"
+  "msg/ObjectLocation.msg"
   "action/PickupObject.action"
   DEPENDENCIES geometry_msgs std_msgs
 )

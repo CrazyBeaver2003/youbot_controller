@@ -8,6 +8,7 @@ EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/project
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/apartment_structure/protos/Wall.proto"
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/fruits/protos/Apple.proto"
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/balls/protos/Ball.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/bounding_objects/protos/PipeBoundingObject.proto"
 
 WorldInfo {
   info [
@@ -43,8 +44,8 @@ WorldInfo {
   ]
 }
 Viewpoint {
-  orientation 0.008937939378168334 0.999736339398242 0.021151002961453214 1.6544921251455293
-  position 2.1322772313116287 -2.7673567171972264 37.15883776994565
+  orientation 0.004235137071340052 0.9996543973089824 0.025945125839004404 1.63473346018618
+  position 0.44608378633336243 -1.3707103493110397 17.763157405284545
   follow "youBot"
 }
 TexturedBackground {
@@ -62,7 +63,7 @@ WoodenBox {
   translation -2.99455 -7.75878 0
   rotation 0 0 1 -1.5707963267948966
   name "wooden box(1)"
-  size 0.6 0.6 0.2
+  size 0.2 0.2 0.2
 }
 Wall {
   translation 1.58 2.38 0
@@ -136,9 +137,9 @@ Wall {
   size 0.1 15 1
 }
 WoodenBox {
-  translation 7.09545 -4.98878 0
+  translation 7.20545 -4.98878 0
   rotation 0 0 1 -1.5707963267948966
-  size 0.6 0.6 0.2
+  size 0.2 0.2 0.2
 }
 WoodenBox {
   translation 7.11545 4.84122 0
@@ -195,8 +196,8 @@ Wall {
   rotation 0 0 1 1.57
   size 0.1 15 1
 }
-DEF YellowCube Solid {
-  translation -3.2 -7.76 0.025
+DEF YellowCylinder Solid {
+  translation -3.01 -7.76 0.115
   children [
     Shape {
       appearance PBRAppearance {
@@ -204,14 +205,16 @@ DEF YellowCube Solid {
         roughness 0.5
         metalness 0
       }
-      geometry Box {
-        size 0.05 0.05 0.05
+      geometry Cylinder {
+        height 0.03
+        radius 0.02
       }
     }
   ]
-  name "yellow_cube"
-  boundingObject Box {
-    size 0.04 0.04 0.04
+  name "yellow_cylinder"
+  boundingObject Cylinder {
+    height 0.03
+    radius 0.02
   }
   physics Physics {
     density -1
@@ -221,8 +224,46 @@ DEF YellowCube Solid {
     1 1 0
   ]
 }
-Ball {
-  translation 6.87 -4.99 0.1225
-  color 0.3 0.48 1
-  radius 0.02
+DEF RedCylinder Solid {
+  translation 7.15 -4.98 0.115
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 1 0 0
+        roughness 0.5
+        metalness 0
+      }
+      geometry Cylinder {
+        height 0.03
+        radius 0.02
+      }
+    }
+  ]
+  name "red_cylinder"
+  boundingObject Cylinder {
+    height 0.03
+    radius 0.02
+  }
+  physics Physics {
+    density -1
+    mass 0.01
+  }
+  recognitionColors [
+    1 0 0
+  ]
+}
+DEF PIPE Solid {
+  translation 0.6 0 0.15
+  children [
+    DEF PIPE_SHAPE PipeBoundingObject {
+      height 0.3
+      radius 0.15
+      thickness 0.01
+    }
+  ]
+  boundingObject USE PIPE_SHAPE
+  physics Physics {
+    density -1
+    mass 10
+  }
 }

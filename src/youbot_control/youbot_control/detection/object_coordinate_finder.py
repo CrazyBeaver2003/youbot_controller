@@ -4,7 +4,7 @@ import rclpy
 from rclpy.node import Node
 from sensor_msgs.msg import Image, CameraInfo
 from geometry_msgs.msg import PointStamped, TransformStamped
-from youbot_interfaces.msg import BoundingBoxArray, BoundingBox
+from youbot_interfaces.msg import BoundingBoxArray, BoundingBox, ObjectLocation
 from cv_bridge import CvBridge
 import numpy as np
 import cv2
@@ -65,6 +65,13 @@ class ObjectCoordinateFinder(Node):
         self.points_publisher = self.create_publisher(
             PointStamped,
             '/object_coordinates',
+            10
+        )
+
+        # Публикация локаций объектов с именами
+        self.location_publisher = self.create_publisher(
+            ObjectLocation,
+            '/object_locations',
             10
         )
         
@@ -167,8 +174,16 @@ class ObjectCoordinateFinder(Node):
             point_base_link.point.y = float(self.camera_offset_y - x_camera)  # Влево/вправо (инверсия)
             point_base_link.point.z = float(self.camera_offset_z - y_camera)  # Вверх/вниз (инверсия)
             
-            # Публикуем результат
+            # Публикация результат
             self.points_publisher.publish(point_base_link)
+
+            # Публикуем ObjectLocation
+            loc_msg = ObjectLocation()
+            loc_msg.header = point_base_link.header
+            loc_msg.name = bbox.class_name
+            loc_msg.pose.position = point_base_link.point
+            loc_msg.pose.orientation.w = 1.0
+            self.location_publisher.publish(loc_msg)
             
             self.get_logger().info(
                 f'Object "{bbox.class_name}" (conf={bbox.confidence:.2f}) detected at:\n'

@@ -50,6 +50,8 @@ setup(
             'set_initial_pose = youbot_control.nodes.set_initial_pose:main',
 
             'pickup_action_server = youbot_control.actions.pickup_action_server:main',
+            'pickup_action_smach = youbot_control.actions.pickup_action_smach:main',
+            'mission_controller = youbot_control.nodes.mission_controller:main',
         ],
     },
 )
