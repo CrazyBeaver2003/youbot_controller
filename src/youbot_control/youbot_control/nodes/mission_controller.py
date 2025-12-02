@@ -197,6 +197,53 @@ class ExploreState(smach.State):
                 candidates.append((wx, wy))
         
         if not candidates:
+            # Optimization: If all objects found, stop early
+            if len(self.node.found_objects) >= len(self.node.target_objects):
+                self.node.get_logger().info("Map complete and all objects found. Stopping exploration.")
+                return None
+
+            # --- Coverage Logic: Visit unvisited free space ---
+            self.node.get_logger().info("No frontiers. Checking for unvisited free space (Coverage Mode)...")
+            y_free, x_free = np.where(free_mask)
+            # Downsample (every 10th point ~ 0.5m)
+            step = 10
+            x_free = x_free[::step]
+            y_free = y_free[::step]
+            
+            cov_candidates = []
+            for x, y in zip(x_free, y_free):
+                # Safety check
+                x_min = max(0, x - safety_radius)
+                x_max = min(width, x + safety_radius)
+                y_min = max(0, y - safety_radius)
+                y_max = min(height, y + safety_radius)
+                
+                if np.any(data[y_min:y_max, x_min:x_max] == OCCUPIED):
+                    continue
+                
+                wx = x * resolution + origin_x
+                wy = y * resolution + origin_y
+                
+                # Check if visited (Radius 1.5m for coverage)
+                is_visited = False
+                for vx, vy in self.visited_frontiers:
+                    if math.hypot(wx - vx, wy - vy) < 1.5:
+                        is_visited = True
+                        break
+                if not is_visited:
+                    cov_candidates.append((wx, wy))
+            
+            if cov_candidates:
+                self.node.get_logger().info(f"Found {len(cov_candidates)} coverage points.")
+                try:
+                    trans = self.node.tf_buffer.lookup_transform('map', 'base_link', rclpy.time.Time())
+                    rx = trans.transform.translation.x
+                    ry = trans.transform.translation.y
+                    cov_candidates.sort(key=lambda p: math.hypot(p[0]-rx, p[1]-ry))
+                    return cov_candidates[0]
+                except:
+                    return cov_candidates[0]
+
             # If all visited or unsafe, clear visited list and try again (maybe map changed)
             if len(self.visited_frontiers) > 0:
                 self.node.get_logger().info("All candidates visited. Clearing visited list to re-check.")
@@ -559,7 +606,7 @@ class MissionController(Node):
         # Data
         self.found_objects = {}
         self.latest_detections = {} # Stores the most recent message for each object
-        self.target_objects = ['apple', 'ball', 'cube']
+        self.target_objects = ['apple', 'red_cylinder', 'yellow_cylinder']
         self.latest_command = None
         self.latest_scan = None
         self.latest_map = None

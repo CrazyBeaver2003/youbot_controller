@@ -7,7 +7,6 @@ EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/project
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/robots/kuka/youbot/protos/Youbot.proto"
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/apartment_structure/protos/Wall.proto"
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/fruits/protos/Apple.proto"
-EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/balls/protos/Ball.proto"
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/bounding_objects/protos/PipeBoundingObject.proto"
 
 WorldInfo {
@@ -44,8 +43,8 @@ WorldInfo {
   ]
 }
 Viewpoint {
-  orientation 0.004235137071340052 0.9996543973089824 0.025945125839004404 1.63473346018618
-  position 0.44608378633336243 -1.3707103493110397 17.763157405284545
+  orientation 0.0036477455643484542 0.9996668750584308 0.02555059418505918 1.6747198888315833
+  position 2.5149942840359 -3.4624712183363533 18.451418636418182
   follow "youBot"
 }
 TexturedBackground {
@@ -253,7 +252,7 @@ DEF RedCylinder Solid {
   ]
 }
 DEF PIPE Solid {
-  translation 0.6 0 0.15
+  translation 0.65 0 0.15
   children [
     DEF PIPE_SHAPE PipeBoundingObject {
       height 0.3
